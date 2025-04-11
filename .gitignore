@@ -1,1 +1,49 @@
-.idea/*
+# Editors
+/.idea/
+/.vscode/
+
+# Вспомогательные вещи для IDE
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+
+# Environment
+.env
+.env*
+!.env*.example
+helm/*/values.*.yaml
+
+# Cache and debugs
+**/.php_cs.cache
+**/.phpcs-cache
+**/.php-cs-fixer.cache
+**/.phpunit.result.cache
+**/npm-debug.log
+**/yarn-error.log
+helm/my/debug*.yaml
+
+# App data
+**/*.log
+/storage/*.key
+
+# Builded files
+public/js/
+public/css/
+public/fonts/vendor/
+public/images/vendor/
+public/mix-manifest.json
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Tests & CodeStyle
+/phpcs.xml
+/phpunit.xml
+/phpstan.neon
+
+# Symlink на папку storage из public
+/public/storage
+
+# Для локальной отладки различных участков кода
+/app/Console/Commands/Local/
