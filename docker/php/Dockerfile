@@ -39,6 +39,11 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# TODO: для подобных вещей необходимо сделать сборку для окружений
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+COPY php/xdebug.ini $PHP_INI_DIR/php.ini
+
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
