@@ -1,7 +1,5 @@
 FROM php:8.2-fpm
 
-RUN docker-php-ext-install pdo_mysql
-
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -28,8 +26,11 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update
+
+RUN apt-get install -y libpq-dev
 # Install extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_pgsql
 #RUN docker-php-ext-install zip
 RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
