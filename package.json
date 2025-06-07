@@ -4,26 +4,40 @@
         "dev": "npx mix build",
         "development": "mix",
         "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "watch-poll": "mix watch -- --watch-options-poll=4000",
         "hot": "npx mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "clean": "rm -rf node_modules/.cache public/js public/css"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.7.2",
+        "@fortawesome/free-solid-svg-icons": "^6.7.2",
+        "@fortawesome/vue-fontawesome": "^3.0.8",
         "@popperjs/core": "^2.11.6",
-        "axios": "1.8.2",
+        "@types/node": "^22.15.30",
+        "@vue/compiler-sfc": "^3.5.16",
+        "axios": "^1.8.2",
         "bootstrap": "^5.2.3",
+        "font-awesome": "^4.7.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
+        "naive-ui": "^2.41.0",
         "postcss": "^8.1.14",
         "sass": "^1.56.1",
-        "vue": "^3.2.37",
+        "sass-loader": "^16.0.5",
+        "vfonts": "^0.0.3",
         "vue-loader": "^17.4.2",
         "vue-router": "^4.5.1",
-        "vue-template-compiler": "^2.7.16"
+        "vue-template-compiler": "^2.7.16",
+        "@vue/cli-plugin-typescript": "^5.0.8",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.8.3",
+        "webpack": "^5.99.9"
     },
     "dependencies": {
-        "vuex": "^4.1.0",
-        "webpack": "^5.99.9"
+        "vue": "^3.5.16",
+        "vue-axios": "^3.5.2",
+        "vuex": "^4.1.0"
     }
 }
