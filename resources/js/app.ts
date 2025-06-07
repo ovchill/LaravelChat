@@ -6,15 +6,27 @@ import router from '@/router';
 import 'vfonts/Lato.css';
 import 'vfonts/FiraCode.css';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {create, NButton, NInput, NRadio, NRadioGroup, NForm, NAlert, NMessageProvider, NFormItem} from 'naive-ui'
+import {
+    create,
+    NButton,
+    NInput,
+    NRadio,
+    NRadioGroup,
+    NForm,
+    NAlert,
+    NMessageProvider,
+    NFormItem,
+    NPopover,
+    NDynamicInput
+} from 'naive-ui'
 
 const naive = create({
-    components: [NButton, NInput, NRadio, NRadioGroup, NForm, NAlert, NMessageProvider, NFormItem]
+    components: [NButton, NInput, NRadio, NRadioGroup, NForm, NAlert, NMessageProvider, NFormItem, NPopover, NDynamicInput]
 })
 
 createApp(App)
     .use(router)
     .use(VueAxios, axios)
     .use(naive)
-    .component('font-awesome-icon', FontAwesomeIcon)
+    .component('FontAwesomeIcon', FontAwesomeIcon)
     .mount('#app')

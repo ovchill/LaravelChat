@@ -19,6 +19,7 @@ services:
             - host.docker.internal:host-gateway
     front:
         image: node:24
+        working_dir: /var/www/html
         build:
             context: .
             dockerfile: docker/front/Dockerfile
