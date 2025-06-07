@@ -1,7 +1,18 @@
-<script setup>
-console.log('test')
+<script lang="ts">
+import Header from "./components/MainComponents/Header.vue";
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: 'App',
+    components: {
+        Header
+    },
+});
 </script>
 
 <template>
-    <router-view />
+    <Header/>
+    <n-message-provider>
+        <router-view />
+    </n-message-provider>
 </template>

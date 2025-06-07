@@ -1,14 +1,13 @@
+<script setup>
+import ChatChoice from "./ChatChoice.vue";
+</script>
+
 <template>
-    <div>
-        Main page here
+    <div class="container">
+        <ChatChoice/>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Main'
-}
-</script>
 
 <style scoped>
 
