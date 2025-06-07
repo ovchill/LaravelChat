@@ -34,6 +34,8 @@ services:
         tty: true
     db:
         image: postgres:17.5
+        volumes:
+            - db_data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
         environment:
@@ -46,3 +48,6 @@ services:
 networks:
     app-network:
         driver: bridge
+
+volumes:
+    db_data:  # Docker автоматически создаст том с этим именем
