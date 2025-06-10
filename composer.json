@@ -9,7 +9,8 @@
         "laravel/framework": "^12.10.",
         "laravel/sanctum": "^4.1",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^4.6"
+        "laravel/ui": "^4.6",
+        "ph-7/just-http-status-codes": "^1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
