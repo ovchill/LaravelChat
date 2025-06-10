@@ -21,6 +21,6 @@ readonly class CategoriesManager
      */
     public function getCategoriesForFront(): array
     {
-        return $this->categoriesRepository->getAll(['title', 'logo'])->all();
+        return $this->categoriesRepository->getAll(['id', 'title', 'logo'])->all();
     }
 }

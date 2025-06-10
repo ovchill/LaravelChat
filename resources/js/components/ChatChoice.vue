@@ -1,5 +1,5 @@
 <script lang="ts">
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import '@fortawesome/free-solid-svg-icons'
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {useMessage} from 'naive-ui'
@@ -24,11 +24,12 @@ export default defineComponent({
     data() {
         return {
             categories: [] as Category[],
-            sexList: ['Мужской', 'Женский'],
+            //TODO: использовать enum пола
+            sexList: {'male': 'Мужской', 'female': 'Женский'},
             alert: useMessage(),
             formData: {
                 formUserName: '',
-                formSexId: 0,
+                formSex: 'male',
             },
             formRef: ref<FormInst | null>(null)
         }
@@ -44,6 +45,9 @@ export default defineComponent({
                 }
 
                 this.categories = categoriesFromApi
+            })
+            .catch((error) => {
+                this.alert.error('Ошибка при получении категорий чатов: ' + error.response?.data.message)
             })
     },
     methods: {
@@ -61,8 +65,35 @@ export default defineComponent({
                 return;
             }
 
-            // При успешной валидации переходим в окно чата
-            router.push('/chat')
+            let chosenCategoriesIds = [];
+            for (const category of this.categories as Category[]) {
+                if (category.chosen) {
+                    chosenCategoriesIds.push(category.id);
+                }
+            }
+
+            axios
+                .get(
+                    '/LobbiesController/findLobby',
+                    {
+                        params: {
+                            nickname: this.formData.formUserName,
+                            sex: this.formData.formSex,
+                            categoriesIds: chosenCategoriesIds,
+                        },
+                    }
+                )
+                .then((response: AxiosResponse) => {
+                    console.log('response')
+                    console.log(response)
+                    //TODO: Переделать на константу
+                    if (response.status === 200) {
+                        router.push('/chat')
+                    }
+                })
+                .catch((error) => {
+                    this.alert.error('Ошибка при подключении к чату: ' + error.response?.data.message)
+                })
         }
     }
 })
@@ -89,7 +120,8 @@ export default defineComponent({
 
                             <n-popover trigger="hover">
                                 <template #trigger>
-                                    <FontAwesomeIcon class="chat-choice-form__nickname-icon" :icon="loadIcon('faQuestion')"/>
+                                    <FontAwesomeIcon class="chat-choice-form__nickname-icon"
+                                                     :icon="loadIcon('faQuestion')"/>
                                 </template>
                                 <span>Никнейм нужен только для чата, информация никуда не сохраняется.</span>
                             </n-popover>
@@ -97,12 +129,12 @@ export default defineComponent({
 
 
                     </div>
-                    <n-radio-group name="radioGroup" v-model:value="formData.formSexId">
+                    <n-radio-group name="radioGroup" v-model:value="formData.formSex">
                         <n-radio
-                            v-for="(sex, index) in sexList"
+                            v-for="(sex, key) in sexList"
                             :key="sex"
                             :label="sex"
-                            :value="index"
+                            :value="key"
                         />
                     </n-radio-group>
                 </div>
