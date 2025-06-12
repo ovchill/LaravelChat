@@ -17,11 +17,24 @@ import {
     NMessageProvider,
     NFormItem,
     NPopover,
-    NDynamicInput
+    NDynamicInput,
+    NInputNumber,
 } from 'naive-ui'
 
 const naive = create({
-    components: [NButton, NInput, NRadio, NRadioGroup, NForm, NAlert, NMessageProvider, NFormItem, NPopover, NDynamicInput]
+    components: [
+        NButton,
+        NInput,
+        NRadio,
+        NRadioGroup,
+        NForm,
+        NAlert,
+        NMessageProvider,
+        NFormItem,
+        NPopover,
+        NDynamicInput,
+        NInputNumber
+    ],
 })
 
 createApp(App)

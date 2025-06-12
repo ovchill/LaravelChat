@@ -17,7 +17,7 @@ class LobbiesController extends Controller
      *
      * @return void
      */
-    public function findLobby(FindLobbyRequest $request, LobbyManager $manager): void
+    public function connectUserToLobby(FindLobbyRequest $request, LobbyManager $manager): void
     {
         $request->validated();
 
@@ -25,8 +25,10 @@ class LobbiesController extends Controller
             $request->get('sex'),
             $request->get('nickname'),
             $request->get('categoriesIds'),
+            $request->session()->get('_token'),
+            (int)$request->get('usersLimit'),
         );
 
-        $manager->findLobby($seeker);
+        $manager->connectUserToLobby($seeker);
     }
 }

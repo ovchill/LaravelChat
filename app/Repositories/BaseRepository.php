@@ -44,7 +44,7 @@ abstract class BaseRepository
      *
      * @return Model
      */
-    public function updateOrCreate(array $find, array $values): Model
+    public function updateOrCreate(array $find, array $values = []): Model
     {
         return $this->query()->updateOrCreate($find, $values);
     }

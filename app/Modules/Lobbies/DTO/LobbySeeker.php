@@ -13,7 +13,9 @@ readonly class LobbySeeker
     public function __construct(
         private string $sex,
         private string $nickname,
-        private array  $categories,
+        private array  $categoryIds,
+        private string $sessionToken,
+        private int    $usersLimit,
     )
     {}
 
@@ -36,8 +38,21 @@ readonly class LobbySeeker
     /**
      * @return int[]
      */
-    public function getCategories(): array
+    public function getCategoryIds(): array
     {
-        return $this->categories;
+        return $this->categoryIds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionToken(): string
+    {
+        return $this->sessionToken;
+    }
+
+    public function getUsersLimit()
+    {
+        return $this->usersLimit;
     }
 }

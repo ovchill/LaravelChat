@@ -27,6 +27,7 @@ export default defineComponent({
             //TODO: использовать enum пола
             sexList: {'male': 'Мужской', 'female': 'Женский'},
             alert: useMessage(),
+            usersLimit: 2,
             formData: {
                 formUserName: '',
                 formSex: 'male',
@@ -80,12 +81,11 @@ export default defineComponent({
                             nickname: this.formData.formUserName,
                             sex: this.formData.formSex,
                             categoriesIds: chosenCategoriesIds,
+                            usersLimit: this.usersLimit,
                         },
                     }
                 )
                 .then((response: AxiosResponse) => {
-                    console.log('response')
-                    console.log(response)
                     //TODO: Переделать на константу
                     if (response.status === 200) {
                         router.push('/chat')
@@ -101,9 +101,9 @@ export default defineComponent({
 
 <template>
     <div id="chat-choice">
+        <h1>Найди свой чат</h1>
         <n-form
             ref="formRef"
-            inline
             :model="formData"
             :rules="formRules"
             :label-width="80"
@@ -112,35 +112,45 @@ export default defineComponent({
         >
             <!-- Секция регистрации в чате -->
             <section>
-                <article>Поля для регистрации в чате</article>
                 <div>
                     <div>
                         <n-form-item label="Ваш никнейм" path="formUserName">
-                            <n-input v-model:value="formData.formUserName" placeholder="Никнейм"/>
-
-                            <n-popover trigger="hover">
-                                <template #trigger>
-                                    <FontAwesomeIcon class="chat-choice-form__nickname-icon"
-                                                     :icon="loadIcon('faQuestion')"/>
+                            <n-input v-model:value="formData.formUserName" placeholder="Никнейм">
+                                <template #suffix>
+                                    <n-popover trigger="hover">
+                                        <template #trigger>
+                                            <FontAwesomeIcon class="chat-choice-form__nickname-icon"
+                                                             :icon="loadIcon('faQuestion')"/>
+                                        </template>
+                                        <span>Никнейм нужен только для чата, информация никуда не сохраняется.</span>
+                                    </n-popover>
                                 </template>
-                                <span>Никнейм нужен только для чата, информация никуда не сохраняется.</span>
-                            </n-popover>
+                            </n-input>
                         </n-form-item>
-
-
                     </div>
-                    <n-radio-group name="radioGroup" v-model:value="formData.formSex">
-                        <n-radio
-                            v-for="(sex, key) in sexList"
-                            :key="sex"
-                            :label="sex"
-                            :value="key"
-                        />
-                    </n-radio-group>
+                    <div>
+                        <n-radio-group name="radioGroup" v-model:value="formData.formSex">
+                            <n-radio
+                                v-for="(sex, key) in sexList"
+                                :key="sex"
+                                :label="sex"
+                                :value="key"
+                            />
+                        </n-radio-group>
+                    </div>
+                    <div>
+                        <n-form-item label="Максимальное кол-во пользователей в чате" path="usersLimit">
+                            <n-input-number v-model:value="usersLimit" clearable :min="2" />
+                        </n-form-item>
+                    </div>
                 </div>
             </section>
 
-            <!-- Секция выбора чата -->
+            <!-- Секция доп условий чата -->
+            <section class="chat-choice-usersLimit">
+            </section>
+
+            <!-- Секция выбора категории чата -->
             <section class="chat-choice-categories">
                 <div class="chat-category-wrapper">
                     <article
@@ -167,23 +177,22 @@ export default defineComponent({
 .chat-category {
     &-wrapper {
         display: flex;
-        justify-content: space-between;
     }
 
     &-inner {
         cursor: pointer;
-        transition: all, .5s;
         padding: 30px 20px;
+        box-sizing: border-box;
 
         &:hover {
-            background: #dbffbb;
+            border-bottom: 2px solid #acacac;
         }
 
         &-chosen {
-            background: #c7f89b;
+            border-bottom: 2px solid #222222;
 
             &:hover {
-                background: #a8ca8b;
+                border-bottom: 2px solid #777777;
             }
         }
     }
